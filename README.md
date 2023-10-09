@@ -30,9 +30,10 @@ JOIN wages_2 w2 ON w1.Country = w2.Country
 ORDER BY avg_year_2022 DESC, w1.Country
 LIMIT 5
 ```
-This query retrieves the top 5 countries with the highest average 2022 wages, grouped by their respective regions. The results include various wage details from the years 2000, 2010, 2020 and 2022 for these countries.
+This query retrieves the top 5 countries with the highest respective region average 2022 wages. The results include various wage details from the years 2000, 2010, 2020 and 2022 for these countries.
 
 ### Results
 The resulting dataframe from the SQL query
-
+<img width="663" alt="Screenshot 2023-10-09 at 6 52 57 PM" src="https://github.com/nogibjj/Jaxon-Yue-Mini-Project-6/assets/70416390/3267ec39-c46f-4244-9214-46bb9dda0663">
 Using Github Actions, I have passed make format, make lint, and make test as shown below.
+<img width="795" alt="Screenshot 2023-10-09 at 6 57 02 PM" src="https://github.com/nogibjj/Jaxon-Yue-Mini-Project-6/assets/70416390/96e07c61-d465-425f-9147-444e75ea5ceb">

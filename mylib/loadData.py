@@ -17,6 +17,8 @@ def load_table(dataset1="dataset/Development of Average Annual Wages_1.csv",
     df2 = pd.read_csv(dataset2, delimiter=",", skiprows=1)
     load_dotenv()
     host = os.getenv("HOST_NAME")
+    if not host:
+        raise ValueError("HOST_NAME environment variable not found!")
     token = os.getenv("TOKEN")
     path = os.getenv("HTTP_PATH")
     with sql.connect(

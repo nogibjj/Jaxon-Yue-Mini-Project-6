@@ -25,29 +25,47 @@ def load_table(dataset1="dataset/Development of Average Annual Wages_1.csv",
         http_path=path,
     ) as connection:
         c = connection.cursor()
+
+        c.execute("SHOW TABLES FROM default")
+        tables = c.fetchall()
+
+        for table in tables:
+            print(table)
+            table_name = table.tableName
+            c.execute(f"DROP TABLE IF EXISTS {table_name}")
+        
         c.execute("SHOW TABLES FROM default LIKE 'wages_1'")
         result = c.fetchall() 
+        print(f"tables: {result}")
         if not result:
             c.execute(
                 """
                 CREATE TABLE IF NOT EXISTS wages_1 (
+                    id int,
                     Country string,
                     Region string,
                     year_2000 DOUBLE,
                     year_2010 DOUBLE,
-                    year_2020 DOUBLE,
+                    year_2020 DOUBLE
                 )
             """
             )
             for _, row in df1.iterrows():
-                convert = (_,) + tuple(row)
+                new_row = []
+                for r in row:
+                    if r is None:
+                        new_row.append("Null")
+                    else:
+                        new_row.append(r)
+                print(new_row)
+                convert = (_,) + tuple(new_row)
                 c.execute(f"INSERT INTO wages_1 VALUES {convert}")
-        c.execute("SHOW TABLES FROM default LIKE 'wages_2_test9'")
+        c.execute("SHOW TABLES FROM default LIKE 'wages_2'")
         result = c.fetchall()
         if not result:
             c.execute(
                 """
-                CREATE TABLE IF NOT EXISTS wages_2_test9 (
+                CREATE TABLE IF NOT EXISTS wages_2 (
                     id int,
                     Country string,
                     Region string,
@@ -58,20 +76,7 @@ def load_table(dataset1="dataset/Development of Average Annual Wages_1.csv",
             for _, row in df2.iterrows():
                 print((_,) + tuple(row))
                 convert = (_,) + tuple(row)
-                c.execute(f"INSERT INTO wages_2_test9 VALUES {convert}")
-        # c.execute("""
-        #     SELECT w1.Region, w1.Country, w1.year_2000, w1.year_2010, w1.year_2020, w2.year_2022, AVG(w2.year_2022) OVER(PARTITION BY w1.Region) as avg_year_2022
-        #     FROM wages_1 w1
-        #     JOIN wages_2 w2 ON w1.Country = w2.Country
-        #     ORDER BY avg_year_2022 DESC, w1.Country
-        # """)
-        c.execute("""
-            SELECT *
-            FROM wages_2_test7 w2
-        """)
-        # c.execute("""
-        #     SHOW TABLES;
-        # """)
+                c.execute(f"INSERT INTO wages_2 VALUES {convert}")
         results = c.fetchall()
         print(results)
         c.close()
@@ -89,23 +94,18 @@ def query():
         http_path=path,
     ) as connection:
         c = connection.cursor()
-        # c.execute("""
-        #     SELECT w1.Region, w1.Country, w1.year_2000, w1.year_2010, w1.year_2020, w2.year_2022, AVG(w2.year_2022) OVER(PARTITION BY w1.Region) as avg_year_2022
-        #     FROM wages_1 w1
-        #     JOIN wages_2 w2 ON w1.Country = w2.Country
-        #     ORDER BY avg_year_2022 DESC, w1.Country
-        # """)
         c.execute("""
-            SELECT *
-            FROM wages_2_test2 w2
+            SELECT w1.Region, w1.Country, w1.year_2000, w1.year_2010, w1.year_2020, w2.year_2022, AVG(w2.year_2022) OVER(PARTITION BY w1.Region) as avg_year_2022
+            FROM wages_1 w1
+            JOIN wages_2 w2 ON w1.Country = w2.Country
+            ORDER BY avg_year_2022 DESC, w1.Country
+            LIMIT 5
         """)
-        # c.execute("""
-        #     SHOW TABLES;
-        # """)
         results = c.fetchall()
+        columns = [desc[0] for desc in c.description]
+        filtered_df = pd.DataFrame(results, columns=columns) 
         c.close()
-        print(results)
-    top_regions = set([row[0] for row in results[:3]])
-    filtered_results = [row for row in results if row[0] in top_regions]
+
+    print(filtered_df)
     
-    return filtered_results 
+    return filtered_df

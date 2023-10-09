@@ -21,4 +21,3 @@ seaborn
 dask
 python-dotenv
 databricks-sql-connector
-databricks-sdk-python

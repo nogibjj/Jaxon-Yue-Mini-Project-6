@@ -12,7 +12,7 @@ fastapi
 uvicorn
 #datascience
 jupyter
-panda
+pandas
 numpy
 polars
 scikit-learn
@@ -21,3 +21,4 @@ seaborn
 dask
 python-dotenv
 databricks-sql-connector
+databricks-sdk-python

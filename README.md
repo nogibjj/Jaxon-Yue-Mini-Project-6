@@ -1,4 +1,4 @@
-# IDS 706 Mini Project 5 [![CI](https://github.com/nogibjj/Jaxon-Yue-Mini-Project-5/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/Jaxon-Yue-Mini-Project-5/actions/workflows/cicd.yml)
+# IDS 706 Mini Project 6 [![CI](https://github.com/nogibjj/Jaxon-Yue-Mini-Project-5/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/Jaxon-Yue-Mini-Project-5/actions/workflows/cicd.yml)
 ### Overview
 * This repository includes the components for Mini-Project 5 - Python Script interacting with SQL Database.
 

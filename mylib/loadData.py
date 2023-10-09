@@ -42,12 +42,12 @@ def load_table(dataset1="dataset/Development of Average Annual Wages_1.csv",
             for _, row in df1.iterrows():
                 convert = (_,) + tuple(row)
                 c.execute(f"INSERT INTO wages_1 VALUES {convert}")
-        c.execute("SHOW TABLES FROM default LIKE 'wages_2_test7'")
+        c.execute("SHOW TABLES FROM default LIKE 'wages_2_test9'")
         result = c.fetchall()
         if not result:
             c.execute(
                 """
-                CREATE TABLE IF NOT EXISTS wages_2_test7 (
+                CREATE TABLE IF NOT EXISTS wages_2_test9 (
                     id int,
                     Country string,
                     Region string,
@@ -56,9 +56,9 @@ def load_table(dataset1="dataset/Development of Average Annual Wages_1.csv",
             """
             )
             for _, row in df2.iterrows():
-                print(row)
+                print((_,) + tuple(row))
                 convert = (_,) + tuple(row)
-                c.execute(f"INSERT INTO wages_2_test7 VALUES {convert}")
+                c.execute(f"INSERT INTO wages_2_test9 VALUES {convert}")
         # c.execute("""
         #     SELECT w1.Region, w1.Country, w1.year_2000, w1.year_2010, w1.year_2020, w2.year_2022, AVG(w2.year_2022) OVER(PARTITION BY w1.Region) as avg_year_2022
         #     FROM wages_1 w1

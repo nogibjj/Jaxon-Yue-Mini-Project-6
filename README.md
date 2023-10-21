@@ -19,7 +19,7 @@
 * GitHub Actions
 
 ### Databricks Connection
-Using Databricks thorugh Azura, I created a cluster and retrieved the respective `SERVER_HOSTNAME`, `HTTP_PATH` and `TOKEN`. I stored these in my `.env` file and used them in my load function to connect to Databricks. I also added these three variables to the Action Secrets in the repo settings.
+Using Databricks thorugh Azure, I created a cluster and retrieved the respective `SERVER_HOSTNAME`, `HTTP_PATH` and `TOKEN`. I stored these in my `.env` file and used them in my load function to connect to Databricks. I also added these three variables to the Action Secrets in the repo settings.
 
 ### Complex SQL query
 Below is the complex SQL query, which can be found in `mylib/loadData.py`
